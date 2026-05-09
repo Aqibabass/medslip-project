@@ -406,7 +406,7 @@ Before you begin, make sure you have:
 ### Step 1: Navigate to Project
 
 ```bash
-cd c:/Users/Hp/OneDrive/Desktop/cisco/medslip-system
+cd medslip-system
 ```
 
 ### Step 2: Start MongoDB
@@ -480,7 +480,7 @@ You need **3 terminal windows** to run all parts simultaneously.
 ### Terminal 1: Start Backend Server
 
 ```bash
-cd c:/Users/Hp/OneDrive/Desktop/cisco/medslip-system/server
+cd medslip-system/server
 npm start
 ```
 
@@ -501,7 +501,7 @@ npm run dev
 ### Terminal 2: Start Patient App
 
 ```bash
-cd c:/Users/Hp/OneDrive/Desktop/cisco/medslip-system/client
+cd medslip-system/client
 npm run dev
 ```
 
@@ -517,7 +517,7 @@ Open **http://localhost:5173** in your browser.
 ### Terminal 3: Start ATM Kiosk
 
 ```bash
-cd c:/Users/Hp/OneDrive/Desktop/cisco/medslip-system/kiosk
+cd medslip-system/kiosk
 npm run dev
 ```
 
