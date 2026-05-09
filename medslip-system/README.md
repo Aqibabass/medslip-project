@@ -4,6 +4,12 @@
 
 ---
 
+> ⚡ **NEW TO THE PROJECT?** Start with [`SETUP_GUIDE.md`](./SETUP_GUIDE.md) — a beginner-friendly walkthrough that explains everything from scratch in simple steps.
+> 
+> 📖 This `README.md` is the **full technical reference** (1,458 lines) with API docs, database schemas, security details, and more. Use it when you need deep-dive information.
+
+---
+
 ## 📋 Table of Contents
 1. [What is MedSlip ATM System?](#what-is-medslip-atm-system)
 2. [The Problem It Solves](#the-problem-it-solves)
@@ -25,6 +31,8 @@
 18. [UI Screens Guide](#ui-screens-guide)
 19. [Troubleshooting](#troubleshooting)
 20. [Deployment Guide](#deployment-guide)
+21. [Hardware Implementation Guide](#hardware-implementation-guide)
+22. [Related Documents](#related-documents)
 
 ---
 
@@ -157,7 +165,7 @@ PATIENT APP                          ATM KIOSK
 - If service requires payment:
   - Backend creates Razorpay order (`POST /api/payment/order`)
   - Razorpay checkout modal opens
-  - User enters test card details: `4111 1111 1111 1111` (any future date, any CVV)
+  - User enters test card details: `4001` (any future date, any CVV)
   - On payment success: Backend verifies signature (`POST /api/payment/verify`)
   - Token status updated to `paid`
 - If service is free: Token status stays as `paid` (set during creation)
@@ -551,10 +559,10 @@ Follow these steps to test the complete system flow:
 
 **Step 2: Enter Patient Details**
 - Fill in the form:
-  - **Full Name:** Rahul Sharma
-  - **Age:** 35
+  - **Full Name:** Aaqib Abass
+  - **Age:** 27
   - **Gender:** Male (select from dropdown)
-  - **Phone:** 9876543210
+  - **Phone:** 9697838351
   - **Email:** rahul@example.com (optional)
   - **Preferred Doctor:** Dr. Gupta (optional)
 - Click "Next: Select Service →"
@@ -637,11 +645,11 @@ Follow these steps to test the complete system flow:
   │──────────────────────────────│
   │   Token: MS-ATM-A1B2C3D4     │
   │──────────────────────────────│
-  │  Patient:      Rahul Sharma  │
-  │  Age/Gender:   35 / Male      │
+  │  Patient:      Aaqib Abass
+  │  Age/Gender:   27 / Male      │
   │  Department:   Cardiology     │
   │  Doctor:       Dr. Gupta      │
-  │  Phone:        9876543210     │
+  │  Phone:        9697838351    │
   │──────────────────────────────│
   │  Printed: 5/8/2026, 9:35 PM  │
   │──────────────────────────────│
@@ -766,8 +774,8 @@ POST /api/patient/token-details
     "tokenId": "MS-ATM-A1B2C3D4",
     "status": "paid",
     "patientId": {
-      "name": "Rahul Sharma",
-      "age": 35,
+      "name": "Aaqib Abass",
+      "age": 27,
       "gender": "Male",
       "department": "Cardiology",
       "doctor": "Dr. Gupta"
@@ -857,12 +865,12 @@ POST /api/atm/validate
   "slipData": {
     "hospitalName": "MedSlip Hospital",
     "tokenId": "MS-ATM-A1B2C3D4",
-    "patientName": "Rahul Sharma",
-    "age": 35,
+    "patientName": "Aaqib Abass",
+    "age": 27,
     "gender": "Male",
     "department": "Cardiology",
     "doctor": "Dr. Gupta",
-    "phone": "9876543210",
+    "phone": "9697838351",
     "generatedAt": "2026-05-08T16:00:00.000Z",
     "printedAt": "2026-05-08T16:05:00.000Z"
   }
@@ -1028,7 +1036,7 @@ Before printing, the ATM validates all status checks:
 For testing in development mode:
 | Field | Value |
 |-------|-------|
-| Card Number | `4111 1111 1111 1111` |
+| Card Number | `4100 2800 0000 1007` |
 | Expiry | Any future date (e.g., 12/28) |
 | CVV | Any 3 digits (e.g., 123) |
 | Name | Any name |
@@ -1059,11 +1067,11 @@ The ATM Kiosk uses **jsPDF** to generate a PDF document formatted for thermal re
 │                                    │
 ├────────────────────────────────────┤
 │                                    │
-│  Patient:      Rahul Sharma        │  ← Font size 10
-│  Age/Gender:   35 / Male           │
+│  Patient:      Aaqib Abass       │  ← Font size 10
+│  Age/Gender:   27 / Male           │
 │  Department:   Cardiology          │
 │  Doctor:       Dr. Gupta           │
-│  Phone:        9876543210          │
+│  Phone:        9697838351          │
 │                                    │
 ├────────────────────────────────────┤
 │                                    │
@@ -1107,12 +1115,12 @@ Then modify `kiosk/src/utils/print.js` to send raw data to the printer instead o
 │                             │
 │  Full Name                  │
 │  ┌─────────────────────┐   │
-│  │ Rahul Sharma        │   │
+│  │ Aaqib Abass             │   │
 │  └─────────────────────┘   │
 │                             │
 │  Age                        │
 │  ┌─────────────────────┐   │
-│  │ 35                  │   │
+│  │ 27                  │   │
 │  └─────────────────────┘   │
 │                             │
 │  Gender                     │
@@ -1122,7 +1130,7 @@ Then modify `kiosk/src/utils/print.js` to send raw data to the printer instead o
 │                             │
 │  Phone Number               │
 │  ┌─────────────────────┐   │
-│  │ 9876543210          │   │
+│  │ 9697838351             │   │
 │  └─────────────────────┘   │
 │                             │
 │  Email (Optional)           │
@@ -1173,9 +1181,9 @@ Then modify `kiosk/src/utils/print.js` to send raw data to the printer instead o
 │ Confirm Details              │
 │                             │
 │ ┌─────────────────────────┐ │
-│ │ Name:      Rahul Sharma │ │
-│ │ Age/Gender: 35 / Male   │ │
-│ │ Phone:     9876543210   │ │
+│ │ Name:      Aaqib Abass │ │
+│ │ Age/Gender: 27 / Male   │ │
+│ │ Phone:     9697838351   │ │
 │ │ Dept:      Cardiology   │ │
 │ │ Doctor:    Dr. Gupta    │ │
 │ └─────────────────────────┘ │
@@ -1322,11 +1330,11 @@ Then modify `kiosk/src/utils/print.js` to send raw data to the printer instead o
 │  │                             │   │
 │  │  Token: MS-ATM-A1B2C3D4    │   │
 │  │                             │   │
-│  │  Patient:     Rahul Sharma  │   │
-│  │  Age/Gender:  35 / Male     │   │
+│  │  Patient:     Aaqib Abass  │   │
+│  │  Age/Gender:  27 / Male     │   │
 │  │  Department:  Cardiology    │   │
 │  │  Doctor:      Dr. Gupta     │   │
-│  │  Phone:       9876543210    │   │
+│  │  Phone:       9697838351    │   │
 │  │                             │   │
 │  │  Printed: 5/8/2026, 9:35PM │   │
 │  └─────────────────────────────┘   │
@@ -1452,6 +1460,33 @@ npm run kiosk
 - **Error Monitoring:** Add Sentry or similar for production error tracking
 - **Backup:** Schedule regular MongoDB backups
 - **Scaling:** Add Redis caching if handling high traffic
+
+---
+
+## Related Documents
+
+This project includes companion guides for different audiences:
+
+| Document | Audience | What It Covers |
+|----------|----------|----------------|
+| **[`SETUP_GUIDE.md`](./SETUP_GUIDE.md)** | 🆕 **Newcomers / Beginners** | Step-by-step walkthrough from cloning to running the system. Explains every file, every config, and how all parts work together in plain English. |
+| **[`HARDWARE_SETUP.md`](./HARDWARE_SETUP.md)** | 🔧 **Hardware Engineers** | Building a physical ATM kiosk: Raspberry Pi setup, thermal printer integration, enclosure design, network topology, power management, and maintenance. |
+
+---
+
+## Hardware Implementation Guide
+
+For deploying the MedSlip ATM Kiosk as a physical machine in a hospital, see the complete hardware setup guide:
+
+📖 **[`HARDWARE_SETUP.md`](./HARDWARE_SETUP.md)** — Covers:
+- **Raspberry Pi Kiosk Enclosure** — Full bill of materials and assembly instructions
+- **Touchscreen Display Setup** — 10-inch to 15-inch touch monitor configuration
+- **Thermal Printer Integration** — Epson TM-T20 / Star TSP143 setup with node-thermal-printer
+- **Physical Keypad (Optional)** — USB numpad or GPIO keypad wiring guide
+- **3D Printable Enclosure** — STL files for custom ATM-style housing
+- **Network Architecture** — Hospital LAN / WiFi deployment topology
+- **Power Management** — Auto-start on boot, power supply, UPS recommendations
+- **Security & Tamper Protection** — Physical security for public-facing kiosks
 
 ---
 

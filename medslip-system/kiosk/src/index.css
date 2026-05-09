@@ -1,8 +1,8 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
 
 * {
   margin: 0;
@@ -10,13 +10,113 @@
   box-sizing: border-box;
 }
 
+html, body {
+  overflow-x: hidden;
+  -webkit-tap-highlight-color: transparent;
+  scroll-behavior: smooth;
+}
+
 body {
   font-family: 'Inter', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%);
 }
 
-/* Kiosk fullscreen mode */
-.kiosk-mode {
-  cursor: none;
+/* Kiosk fullscreen mode on large displays */
+@media (min-width: 1440px) {
+  .kiosk-fullscreen {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
 }
+
+/* Kiosk glass card effect */
+.kiosk-glass {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Keypad button base styles */
+.kiosk-key {
+  @apply rounded-2xl font-bold transition-all duration-150 select-none;
+  min-height: 56px;
+}
+
+@media (min-width: 640px) {
+  .kiosk-key {
+    min-height: 64px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .kiosk-key {
+    min-height: 80px;
+  }
+}
+
+@media (min-width: 1440px) {
+  .kiosk-key {
+    min-height: 96px;
+  }
+}
+
+/* Glow effect for active elements */
+.kiosk-glow {
+  box-shadow: 0 0 30px rgba(16, 185, 129, 0.15);
+}
+
+/* Prevent zoom on input focus */
+input, select, textarea {
+  font-size: 16px;
+}
+
+/* Receipt preview for kiosk */
+.kiosk-receipt {
+  background: white;
+  color: #1f2937;
+  font-family: 'Courier New', 'Courier', monospace;
+  max-width: 320px;
+  width: 100%;
+  margin: 0 auto;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+@media (min-width: 640px) {
+  .kiosk-receipt {
+    max-width: 380px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .kiosk-receipt {
+    max-width: 400px;
+  }
+}
+
+/* Touch feedback */
+.touch-active:active {
+  transform: scale(0.95);
+}
+
+/* Loading bar keyframes */
+@keyframes loadingBar {
+  0% { width: 0%; }
+  50% { width: 70%; }
+  100% { width: 100%; }
+}
+
+.animate-loading-bar {
+  animation: loadingBar 2s ease-in-out infinite;
+}
+
+/* Bounce delay classes */
+.bounce-delay-1 { animation-delay: 0s; }
+.bounce-delay-2 { animation-delay: 0.1s; }
+.bounce-delay-3 { animation-delay: 0.2s; }

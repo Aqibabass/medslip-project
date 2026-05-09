@@ -1,17 +1,75 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  background-color: #f8fafc;
+html, body {
+  overflow-x: hidden;
+  scroll-behavior: smooth;
 }
 
+body {
+  margin: 0;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: #f0fdf4;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Medical gradient background */
 .medical-theme {
   background: linear-gradient(135deg, #10B981 0%, #D1FAE5 100%);
+}
+
+/* Smooth card transitions */
+.card-hover {
+  @apply transition-all duration-200 ease-out;
+}
+
+.card-hover:hover {
+  @apply shadow-lg -translate-y-0.5;
+}
+
+/* Touch-friendly button base */
+.touch-btn {
+  @apply min-h-[44px] flex items-center justify-center;
+}
+
+/* Sticky bottom bar for mobile */
+.sticky-bottom {
+  @apply fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 p-4 shadow-[0_-4px_20px_rgba(0,0,0,0.08)] z-50;
+}
+
+/* Prevent zoom on input focus for iOS */
+input, select, textarea {
+  font-size: 16px;
+}
+
+/* Receipt / thermal-paper style */
+.receipt {
+  @apply bg-white text-black p-4 sm:p-6 rounded-lg shadow-lg mx-auto max-w-sm sm:max-w-md overflow-hidden;
+  font-family: 'Courier New', 'Courier', monospace;
+}
+
+.receipt-header {
+  @apply text-center border-b-2 border-dashed border-gray-300 pb-3 mb-3;
+}
+
+.receipt-hospital-name {
+  @apply text-lg font-bold uppercase tracking-wider;
+}
+
+.receipt-detail {
+  @apply flex justify-between text-xs sm:text-sm;
+}
+
+.receipt-label {
+  @apply text-gray-500;
+}
+
+.receipt-value {
+  @apply font-semibold text-gray-800;
 }
