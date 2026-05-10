@@ -1403,33 +1403,42 @@ Then modify `kiosk/src/utils/print.js` to send raw data to the printer instead o
 
 ## Deployment Guide
 
-### Deploying Backend (Render / Railway)
+### Live Deployments (Vercel)
+
+The system is deployed on Vercel with 3 separate projects:
+
+| Project | URL | Type |
+|---------|-----|------|
+| **API Server** | [https://medslip-api.vercel.app](https://medslip-api.vercel.app) | Express + MongoDB (serverless) |
+| **Patient App** | [https://medslip-client.vercel.app](https://medslip-client.vercel.app) | React + Vite (patient-facing UI) |
+| **ATM Kiosk** | [https://medslip-kiosk.vercel.app](https://medslip-kiosk.vercel.app) | React + Vite (kiosk touch UI) |
+
+### Deploying Backend (Vercel / Render / Railway)
 
 1. Push code to GitHub
-2. Create account on Render.com or Railway.app
-3. Connect your GitHub repository
-4. Set environment variables:
+2. For Vercel: `cd server && npx vercel link --project medslip-api --yes && npx vercel --prod --yes`
+3. Set environment variables:
    - `PORT`: 5000
    - `DB_URI`: Your MongoDB Atlas connection string
    - `RAZORPAY_KEY_ID`: Your production Razorpay key
    - `RAZORPAY_KEY_SECRET`: Your production Razorpay secret
    - `HOSPITAL_NAME`: Your hospital name
    - `JWT_SECRET`: A random secure string
-5. Deploy
+4. Deploy
 
 ### Deploying Patient App (Vercel / Netlify)
 
-1. Connect your GitHub repository
+1. Connect your GitHub repository (or `cd client && npx vercel link --project medslip-client --yes && npx vercel --prod --yes`)
 2. Set build command: `npm run build`
 3. Set output directory: `dist`
 4. Set environment variables:
-   - `VITE_API_URL`: Your deployed backend URL (e.g., https://medslip-api.onrender.com/api)
+   - `VITE_API_URL`: Your deployed backend URL (e.g., https://medslip-api.vercel.app/api)
    - `VITE_RAZORPAY_KEY_ID`: Your Razorpay key
 5. Deploy
 
 ### Deploying ATM Kiosk (Vercel / Netlify or Local Server)
 
-1. Same as Patient App deployment
+1. Same as Patient App deployment (use `cd kiosk && npx vercel link --project medslip-kiosk --yes && npx vercel --prod --yes`)
 2. Set environment variable:
    - `VITE_API_URL`: Your deployed backend URL
 3. For hospital use, host on an internal server and access from kiosk devices

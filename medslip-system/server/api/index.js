@@ -1,4 +1,4 @@
-const express = require('express');
+  const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
 
@@ -22,17 +22,20 @@ app.use('/api/patient', patientRoutes);
 app.use('/api/payment', paymentRoutes);
 app.use('/api/atm', atmRoutes);
 
-// MongoDB Connection
+// MongoDB Connection - cached for serverless
 let cachedDb = null;
 async function connectDB() {
   if (cachedDb) return cachedDb;
   const uri = process.env.MONGO_URI || process.env.DB_URI;
   if (!uri) {
-    console.warn('No MongoDB URI configured');
+    console.warn('No MongoDB URI configured - check Vercel env vars (MONGO_URI)');
     return null;
   }
   try {
-    await mongoose.connect(uri);
+    await mongoose.connect(uri, {
+      serverSelectionTimeoutMS: 5000,
+      socketTimeoutMS: 45000,
+    });
     cachedDb = mongoose.connection;
     console.log('MongoDB connected');
     return cachedDb;
