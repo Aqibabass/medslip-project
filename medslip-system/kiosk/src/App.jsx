@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import ATM from './pages/ATM';
 import PrintSlip from './pages/PrintSlip';
 import api from './services/api';
@@ -6,6 +6,19 @@ import api from './services/api';
 function App() {
   const [view, setView] = useState('entry'); // entry, loading, print, error
   const [tokenInput, setTokenInput] = useState('');
+
+  // Pre-fill token from URL query parameter ?token=XXXXX
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const tokenFromUrl = params.get('token');
+    if (tokenFromUrl) {
+      // Remove the MS-ATM- prefix if present so the keypad can accept it
+      const cleanToken = tokenFromUrl.replace(/^MS-ATM-/i, '');
+      setTokenInput(cleanToken);
+      // Optionally auto-submit after a short delay
+      // setTimeout(() => handleValidate(), 500);
+    }
+  }, []);
   const [slipData, setSlipData] = useState(null);
   const [error, setError] = useState('');
   const [loadingMessage, setLoadingMessage] = useState('');

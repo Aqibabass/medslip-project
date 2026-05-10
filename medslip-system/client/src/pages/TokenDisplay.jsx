@@ -181,15 +181,17 @@ const TokenDisplay = () => {
             <h3 className="font-bold text-gray-800 text-base sm:text-lg mb-1">Print Your Slip at ATM Kiosk</h3>
             <p className="text-sm text-gray-500">Head to the nearest ATM kiosk to print your prescription slip</p>
           </div>
-          <button
-            onClick={() => navigate('/atm')}
+          <a
+            href={`https://medslip-kiosk.vercel.app/?token=${encodeURIComponent(tokenData.tokenId)}`}
+            target="_blank"
+            rel="noopener noreferrer"
             className="w-full bg-gradient-to-r from-emerald-600 to-green-500 text-white px-8 py-3.5 rounded-xl font-semibold text-base hover:from-emerald-700 hover:to-green-600 transition-all duration-200 shadow-md hover:shadow-lg active:scale-[0.98] min-h-[48px] flex items-center justify-center gap-2 flex-shrink-0"
           >
             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 7l5 5m0 0l-5 5m5-5H6" />
             </svg>
             Go to ATM Kiosk
-          </button>
+          </a>
         </div>
       </div>
 
