@@ -148,6 +148,10 @@ const Confirmation = () => {
               onSuccess={handlePaymentSuccess} 
               onError={handlePaymentError} 
             />
+            <div className="bg-blue-50 border border-blue-200 rounded-xl p-3 text-xs text-blue-700">
+              <p className="font-medium mb-1">💳 Test Card Details:</p>
+              <p>Card: <strong>4100 2800 0000 1007</strong> | Any future expiry | Any 3-digit CVV</p>
+            </div>
             <button 
               onClick={() => navigate('/service')} 
               className="text-gray-400 hover:text-emerald-600 text-sm w-full text-center transition-colors py-2"

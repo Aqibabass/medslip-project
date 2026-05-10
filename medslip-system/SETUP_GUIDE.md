@@ -361,13 +361,13 @@ Here's a complete walkthrough to test the entire system:
 ### Part 1: Patient App (localhost:5173)
 
 **Step 1 — Enter Patient Details**
-- Fill in the form:
-  - **Full Name:** Aaqib abass
+- Fill in the form (these details will be pre-filled):
+  - **Full Name:** Aaqib Abass
   - **Age:** 27
   - **Gender:** Male
   - **Phone:** 9697838351
-  - **Email:** rahul@example.com (optional)
-  - **Doctor:** Dr. Asad(optional)
+  - **Email:** (optional - leave blank)
+  - **Doctor:** Dr. Gupta
 - Click **"Next: Select Service →"**
 
 **Step 2 — Select a Service**

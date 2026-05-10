@@ -5,7 +5,7 @@ import FormInput from '../components/FormInput';
 const PatientForm = () => {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
-    name: '', age: '', gender: '', phone: '', email: '', doctor: ''
+    name: 'Aaqib Abass', age: '27', gender: 'Male', phone: '9697838351', email: '', doctor: 'Dr. Gupta'
   });
   const [errors, setErrors] = useState({});
   const [loading, setLoading] = useState(false);

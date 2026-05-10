@@ -63,7 +63,7 @@ const services = [
 
 const ServiceSelection = () => {
   const navigate = useNavigate();
-  const [selectedService, setSelectedService] = useState('');
+  const [selectedService, setSelectedService] = useState('Cardiology');
   const [loading, setLoading] = useState(false);
   const patientData = JSON.parse(localStorage.getItem('patientData') || '{}');
 

@@ -563,7 +563,7 @@ Follow these steps to test the complete system flow:
   - **Age:** 27
   - **Gender:** Male (select from dropdown)
   - **Phone:** 9697838351
-  - **Email:** rahul@example.com (optional)
+  - **Email:** aqibabass7@gmail.com(optional)
   - **Preferred Doctor:** Dr. Gupta (optional)
 - Click "Next: Select Service →"
 - ✅ No errors should appear if validation passes
@@ -578,7 +578,7 @@ Follow these steps to test the complete system flow:
 
 **Step 4: Confirm Details**
 - Review your information:
-  - Name: Rahul Sharma
+  - Name:  Sharma
   - Age / Gender: 35 / Male
   - Phone: 9876543210
   - Department: Cardiology
@@ -595,7 +595,7 @@ Follow these steps to test the complete system flow:
   - **Card Number:** `4111 1111 1111 1111`
   - **Card Expiry:** Any future date (e.g., 12/28)
   - **CVV:** Any 3 digits (e.g., 123)
-  - **Name:** Rahul Sharma
+  - **Name:** Aaqib abass Sharma
 - Click "Pay"
 - ✅ **Payment verified** by backend signature check
 - ✅ **Token status updated** from "pending" to "paid"
@@ -727,8 +727,8 @@ POST /api/patient/create
 **Request Body:**
 ```json
 {
-  "name": "Rahul Sharma",
-  "age": 35,
+  "name": "Aaqib abass",
+  "age": 27,
   "gender": "Male",
   "phone": "9876543210",
   "email": "rahul@example.com",
@@ -1135,7 +1135,7 @@ Then modify `kiosk/src/utils/print.js` to send raw data to the printer instead o
 │                             │
 │  Email (Optional)           │
 │  ┌─────────────────────┐   │
-│  │ rahul@example.com   │   │
+│  │ aqibabass7@gmail.com  │   │
 │  └─────────────────────┘   │
 │                             │
 │  ┌─────────────────────┐   │
