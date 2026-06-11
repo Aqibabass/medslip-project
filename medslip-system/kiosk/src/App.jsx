@@ -7,14 +7,14 @@ function App() {
   const [view, setView] = useState('entry'); // entry, loading, print, error
   const [tokenInput, setTokenInput] = useState('');
 
-  // Pre-fill token from URL query parameter ?token=XXXXX
+  // Pre-fill token from URL query parameter ?token=XXXX
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
     const tokenFromUrl = params.get('token');
     if (tokenFromUrl) {
-      // Remove the MS-ATM- prefix if present so the keypad can accept it
-      const cleanToken = tokenFromUrl.replace(/^MS-ATM-/i, '');
-      setTokenInput(cleanToken);
+      // Extract only the last 4 digits from the token
+      const digits = tokenFromUrl.replace(/\D/g, '');
+      setTokenInput(digits.slice(-4));
       // Optionally auto-submit after a short delay
       // setTimeout(() => handleValidate(), 500);
     }
@@ -35,8 +35,7 @@ function App() {
     setError('');
 
     try {
-      const fullToken = `MS-ATM-${tokenInput.trim().toUpperCase()}`;
-      const response = await api.post('/atm/validate', { tokenId: fullToken });
+      const response = await api.post('/atm/validate', { tokenId: tokenInput.trim() });
       setSlipData(response.data.slipData);
       setView('print');
     } catch (err) {

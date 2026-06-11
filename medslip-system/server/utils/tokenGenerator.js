@@ -1,18 +1,14 @@
- const { v4: uuidv4 } = require('uuid');
 const Token = require('../models/Token');
 
 const generateUniqueToken = async () => {
   let token;
   let attempts = 0;
-  const maxAttempts = 5;
-  const chars = '0123456789ABCDEF';
+  const maxAttempts = 50;
 
   while (attempts < maxAttempts) {
-    let randomPart = '';
-    for (let i = 0; i < 8; i++) {
-      randomPart += chars.charAt(Math.floor(Math.random() * chars.length));
-    }
-    token = `MS-ATM-${randomPart}`;
+    // Generate random 4-digit number (0000-9999)
+    const num = Math.floor(Math.random() * 10000);
+    token = String(num).padStart(4, '0');
 
     // Check uniqueness
     const existing = await Token.findOne({ tokenId: token });

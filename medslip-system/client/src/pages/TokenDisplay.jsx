@@ -97,6 +97,7 @@ const TokenDisplay = () => {
           <p className="text-2xl sm:text-3xl lg:text-5xl font-bold text-emerald-700 tracking-wider font-mono break-all overflow-hidden">
             {tokenData.tokenId}
           </p>
+          <p className="text-xs text-gray-400 mt-2">4-digit token number</p>
         </div>
         
         <button

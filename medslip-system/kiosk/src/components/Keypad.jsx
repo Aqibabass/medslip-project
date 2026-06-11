@@ -1,36 +1,57 @@
+import { useEffect, useCallback } from 'react';
+
 const Keypad = ({ tokenInput, setTokenInput, onSubmit }) => {
   const keys = [
     '1', '2', '3',
     '4', '5', '6',
     '7', '8', '9',
-    'A', '0', 'B',
-    'C', 'D', 'E',
-    'F', 'Clear', '⌫',
+    'Clear', '0', '⌫',
   ];
 
-  const handleKey = (key) => {
+  const handleKey = useCallback((key) => {
     if (key === 'Clear') {
       setTokenInput('');
     } else if (key === '⌫') {
       setTokenInput((prev) => prev.slice(0, -1));
     } else if (key === 'Submit') {
-      if (tokenInput.trim()) {
+      if (tokenInput.trim().length === 4) {
         onSubmit();
       }
     } else {
-      setTokenInput((prev) => (prev + key).toUpperCase().slice(0, 10));
+      // Only allow digits (0-9), max 4 characters
+      if (/^[0-9]$/.test(key) && tokenInput.length < 4) {
+        setTokenInput((prev) => prev + key);
+      }
     }
-  };
+  }, [tokenInput, setTokenInput, onSubmit]);
+
+  // Physical keyboard support
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (e.key >= '0' && e.key <= '9') {
+        handleKey(e.key);
+      } else if (e.key === 'Backspace') {
+        handleKey('⌫');
+      } else if (e.key === 'Enter' || e.key === 'Submit') {
+        handleKey('Submit');
+      } else if (e.key === 'Escape') {
+        handleKey('Clear');
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [handleKey]);
 
   const handlePaste = async () => {
     try {
       const text = await navigator.clipboard.readText();
       if (text) {
-        let processedText = text.trim().toUpperCase();
-        if (processedText.startsWith('MS-ATM-')) {
-          processedText = processedText.substring(7);
-        }
-        setTokenInput(processedText.slice(0, 10));
+        let processedText = text.trim();
+        // Strip any non-digit characters
+        processedText = processedText.replace(/\D/g, '');
+        // Keep only last 4 digits
+        setTokenInput(processedText.slice(-4).slice(0, 4));
       }
     } catch (err) {
       console.error('Failed to read clipboard:', err);
@@ -41,11 +62,11 @@ const Keypad = ({ tokenInput, setTokenInput, onSubmit }) => {
     <div className="flex flex-col items-center w-full max-w-md mx-auto px-2 sm:px-4">
       {/* Display Area - Kiosk style */}
       <div className="w-full kiosk-glass rounded-2xl p-4 sm:p-5 lg:p-6 mb-4 sm:mb-6 text-center min-h-[80px] sm:min-h-[100px] relative">
-        <p className="text-gray-400 text-xs sm:text-sm lg:text-base mb-2">Enter your token number</p>
+        <p className="text-gray-400 text-xs sm:text-sm lg:text-base mb-2">Enter your 4-digit token number</p>
         <p className={`text-2xl sm:text-3xl lg:text-4xl kiosk:text-5xl font-mono tracking-wider font-bold ${
           tokenInput ? 'text-white' : 'text-gray-600'
         }`}>
-          {tokenInput || 'MS-ATM-XXXX'}
+          {tokenInput || '----'}
         </p>
         
         {/* Paste button */}
@@ -87,7 +108,7 @@ const Keypad = ({ tokenInput, setTokenInput, onSubmit }) => {
       {/* Submit Button - Full width, larger on big screens */}
       <button
         onClick={() => handleKey('Submit')}
-        disabled={!tokenInput.trim()}
+        disabled={tokenInput.trim().length !== 4}
         className="w-full mt-4 sm:mt-6 bg-gradient-to-r from-emerald-600 to-green-500 hover:from-emerald-500 hover:to-green-400 disabled:from-gray-600 disabled:to-gray-600 disabled:opacity-40 disabled:cursor-not-allowed text-white py-4 sm:py-5 lg:py-6 kiosk:py-8 rounded-2xl text-xl sm:text-2xl lg:text-3xl kiosk:text-4xl font-bold transition-all active:scale-[0.98] shadow-lg shadow-emerald-600/20 hover:shadow-xl hover:shadow-emerald-500/30 disabled:shadow-none min-h-[56px] sm:min-h-[64px] lg:min-h-[80px]"
       >
         <span className="flex items-center justify-center gap-3">
